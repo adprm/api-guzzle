@@ -9,11 +9,11 @@ $client = new Client();
 $response = $client->request('GET', 'http://www.omdbapi.com', [
     'query' => [
         'apikey' => '9acdfcee',
-        's' => 'transformers'
+        's' => 'Harry Potter'
     ]
 ]);
 
-var_dump($response->getBody()->getContents());
+$result = json_decode($response->getBody()->getContents(), true);
 
 ?>
 
@@ -56,69 +56,21 @@ var_dump($response->getBody()->getContents());
                 <hr>
                 <!-- content -->
                 <div class="card-group" id="movie-list">
+                    <?php foreach($result['Search'] as $movie) : ?>
                     <div class="card-group col-md-4">
                         <div class="card m-2">
-                            <img src="" class="card-img-top" alt="...">
+                            <img src="<?= $movie['Poster'] ?>" class="card-img-top" alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">Title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Year</h6>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted"><a href="#" class="card-link see-detail" data-toggle="modal"
-                                        data-target="#exampleModal" data-id="`+ data.imdbID + `">See Detail</a></small>
+                                <h5 class="card-title"><?= $movie['Title'] ?></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><?= $movie['Year'] ?></h6>
                             </div>
                         </div>
                     </div>
-                    <div class="card-group col-md-4">
-                        <div class="card m-2">
-                            <img src="" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Year</h6>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted"><a href="#" class="card-link see-detail" data-toggle="modal"
-                                        data-target="#exampleModal" data-id="`+ data.imdbID + `">See Detail</a></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-group col-md-4">
-                        <div class="card m-2">
-                            <img src="" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">Year</h6>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted"><a href="#" class="card-link see-detail" data-toggle="modal"
-                                        data-target="#exampleModal" data-id="`+ data.imdbID + `">See Detail</a></small>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
 
                 <div style="height: 700px"></div>
                 <p class="lead mb-0">https://github.com/adprm</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Movie Search</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
             </div>
         </div>
     </div>
