@@ -2,6 +2,19 @@
 
 require 'vendor/autoload.php';
 
+use GuzzleHttp\Client;
+
+$client = new Client();
+
+$response = $client->request('GET', 'http://www.omdbapi.com', [
+    'query' => [
+        'apikey' => '9acdfcee',
+        's' => 'transformers'
+    ]
+]);
+
+var_dump($response->getBody()->getContents());
+
 ?>
 
 <!doctype html>
